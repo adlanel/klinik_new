@@ -1,0 +1,3 @@
+-- Insert data into sc_2 table
+INSERT INTO `sc_2` (`id`, `title`, `description`, `image`, `created_at`, `updated_at`) VALUES
+(1, 'Klinik Alfatih Center', 'Klinik Alfatih Center adalah pusat layanan kesehatan dan tumbuh kembang anak yang menyediakan berbagai terapi dan penanganan profesional. Dengan tim ahli yang berpengalaman dan fasilitas modern, kami berkomitmen untuk memberikan pelayanan terbaik bagi tumbuh kembang anak. Kami memahami bahwa setiap anak istimewa dengan kebutuhan yang berbeda, dan kami hadir untuk mendukung perjalanan perkembangan mereka secara optimal.', 'clinic-building.jpg', NOW(), NOW());
