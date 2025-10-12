@@ -1,0 +1,1 @@
+var o=(r,e)=>()=>(e||r((e={exports:{}}).exports,e),e.exports);var t=o((c,s)=>{s.exports={content:["./resources/**/*.blade.php","./resources/**/*.js","./resources/**/*.vue"],theme:{extend:{}},plugins:[]}});export default t();
