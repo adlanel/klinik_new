@@ -60,6 +60,6 @@ class LayananFasilitasController extends Controller
             $fasilitasList->appends(request()->except('fasilitas_page'));
         }
         
-        return view('layanan-fasilitas.index', compact('layananList', 'fasilitasList', 'search', 'type'));
+        return view('pages.layanan-fasilitas', compact('layananList', 'fasilitasList', 'search', 'type'));
     }
 }

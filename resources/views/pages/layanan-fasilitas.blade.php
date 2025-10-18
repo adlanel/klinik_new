@@ -35,7 +35,7 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-            @foreach($layananItems as $layanan)
+            @foreach($layananList as $layanan)
             <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
                 <div class="relative h-56 overflow-hidden">
                     <img 
@@ -74,7 +74,7 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            @foreach($fasilitasItems as $fasilitas)
+            @foreach($fasilitasList as $fasilitas)
             <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
                 <div class="relative h-56 overflow-hidden">
                     <img 
