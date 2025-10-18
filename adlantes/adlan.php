@@ -1,4 +1,3 @@
 
 <?php
 //adlan.php
-oiashdohasldhlaskd
