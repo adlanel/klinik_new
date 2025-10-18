@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('title', 'Edit Banner'); ?>
 
 <?php $__env->startSection('content'); ?>

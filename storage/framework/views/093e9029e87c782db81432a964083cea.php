@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('title', 'Data Pasien'); ?>
 
 <?php $__env->startSection('content'); ?>

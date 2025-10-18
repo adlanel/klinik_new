@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('title', 'Kelola Informasi Tentang Kami'); ?>
 
 <?php $__env->startSection('content'); ?>

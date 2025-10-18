@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('content'); ?>
 <!-- Hero Section -->
 <section class="relative pt-32 pb-24 bg-gradient-to-b from-blue-50 to-white overflow-hidden">

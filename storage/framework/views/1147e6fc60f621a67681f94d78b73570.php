@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('title', 'Banner Management'); ?>
 
 <?php $__env->startSection('content'); ?>

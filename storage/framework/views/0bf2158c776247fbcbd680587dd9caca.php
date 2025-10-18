@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('title', 'Berita & Artikel - Al-Fatih Center'); ?>
 
 <?php $__env->startSection('content'); ?>
