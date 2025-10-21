@@ -48,6 +48,7 @@
                         <th class="px-6 py-3">Urutan</th>
                         <th class="px-6 py-3">Preview Desktop</th>
                         <th class="px-6 py-3">Preview Mobile</th>
+                        <th class="px-6 py-3">Link URL</th>
                         <th class="px-6 py-3">Tanggal Upload</th>
                         <th class="px-6 py-3 text-right">Aksi</th>
                     </tr>
@@ -76,6 +77,17 @@
                                     <img src="<?php echo e($banner->mobile_image_url); ?>" alt="Banner Mobile <?php echo e($banner->id); ?>" class="h-full w-full object-cover rounded">
                                     <span class="absolute bottom-0 right-0 bg-gray-800 text-white text-xs px-1 rounded-tl">Mobile</span>
                                 </div>
+                            </td>
+                            <td class="px-6 py-4">
+                                <?php if($banner->link_url): ?>
+                                    <a href="<?php echo e($banner->link_url); ?>" target="_blank" class="text-blue-600 hover:text-blue-800 break-all">
+                                        <?php echo e(Str::limit($banner->link_url, 30)); ?>
+
+                                        <i class="fas fa-external-link-alt ml-1 text-xs"></i>
+                                    </a>
+                                <?php else: ?>
+                                    <span class="text-gray-400">-</span>
+                                <?php endif; ?>
                             </td>
                             <td class="px-6 py-4"><?php echo e(\Carbon\Carbon::parse($banner->created_at)->format('d M Y, H:i')); ?></td>
                             <td class="px-6 py-4 text-right space-x-2">

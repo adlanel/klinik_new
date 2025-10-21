@@ -102,11 +102,21 @@
                 <div class="slider w-full">
                     @foreach($sliders as $slider)
                         <div class="slider-item relative w-full">
-                            <!-- Desktop Image (hidden on mobile) -->
-                            <img src="{{ $slider->desktop_image_url }}" alt="Slider image {{ $slider->order_number }}" class="hidden md:block w-full object-contain" style="max-height: 600px; width: 100%;">
-                            
-                            <!-- Mobile Image (visible only on mobile) -->
-                            <img src="{{ $slider->mobile_image_url }}" alt="Slider image {{ $slider->order_number }}" class="block md:hidden w-full object-contain" style="max-height: 500px; width: 100%;">
+                            @if($slider->link_url)
+                                <a href="{{ $slider->link_url }}" target="_blank" class="block w-full">
+                                    <!-- Desktop Image (hidden on mobile) -->
+                                    <img src="{{ $slider->desktop_image_url }}" alt="Slider image {{ $slider->order_number }}" class="hidden md:block w-full object-contain cursor-pointer hover:opacity-90 transition-opacity" style="max-height: 600px; width: 100%;">
+                                    
+                                    <!-- Mobile Image (visible only on mobile) -->
+                                    <img src="{{ $slider->mobile_image_url }}" alt="Slider image {{ $slider->order_number }}" class="block md:hidden w-full object-contain cursor-pointer hover:opacity-90 transition-opacity" style="max-height: 500px; width: 100%;">
+                                </a>
+                            @else
+                                <!-- Desktop Image (hidden on mobile) -->
+                                <img src="{{ $slider->desktop_image_url }}" alt="Slider image {{ $slider->order_number }}" class="hidden md:block w-full object-contain" style="max-height: 600px; width: 100%;">
+                                
+                                <!-- Mobile Image (visible only on mobile) -->
+                                <img src="{{ $slider->mobile_image_url }}" alt="Slider image {{ $slider->order_number }}" class="block md:hidden w-full object-contain" style="max-height: 500px; width: 100%;">
+                            @endif
                             
                             <!-- Overlay text has been removed -->
                         </div>

@@ -102,11 +102,21 @@
                 <div class="slider w-full">
                     <?php $__currentLoopData = $sliders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $slider): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <div class="slider-item relative w-full">
-                            <!-- Desktop Image (hidden on mobile) -->
-                            <img src="<?php echo e($slider->desktop_image_url); ?>" alt="Slider image <?php echo e($slider->order_number); ?>" class="hidden md:block w-full object-contain" style="max-height: 600px; width: 100%;">
-                            
-                            <!-- Mobile Image (visible only on mobile) -->
-                            <img src="<?php echo e($slider->mobile_image_url); ?>" alt="Slider image <?php echo e($slider->order_number); ?>" class="block md:hidden w-full object-contain" style="max-height: 500px; width: 100%;">
+                            <?php if($slider->link_url): ?>
+                                <a href="<?php echo e($slider->link_url); ?>" target="_blank" class="block w-full">
+                                    <!-- Desktop Image (hidden on mobile) -->
+                                    <img src="<?php echo e($slider->desktop_image_url); ?>" alt="Slider image <?php echo e($slider->order_number); ?>" class="hidden md:block w-full object-contain cursor-pointer hover:opacity-90 transition-opacity" style="max-height: 600px; width: 100%;">
+                                    
+                                    <!-- Mobile Image (visible only on mobile) -->
+                                    <img src="<?php echo e($slider->mobile_image_url); ?>" alt="Slider image <?php echo e($slider->order_number); ?>" class="block md:hidden w-full object-contain cursor-pointer hover:opacity-90 transition-opacity" style="max-height: 500px; width: 100%;">
+                                </a>
+                            <?php else: ?>
+                                <!-- Desktop Image (hidden on mobile) -->
+                                <img src="<?php echo e($slider->desktop_image_url); ?>" alt="Slider image <?php echo e($slider->order_number); ?>" class="hidden md:block w-full object-contain" style="max-height: 600px; width: 100%;">
+                                
+                                <!-- Mobile Image (visible only on mobile) -->
+                                <img src="<?php echo e($slider->mobile_image_url); ?>" alt="Slider image <?php echo e($slider->order_number); ?>" class="block md:hidden w-full object-contain" style="max-height: 500px; width: 100%;">
+                            <?php endif; ?>
                             
                             <!-- Overlay text has been removed -->
                         </div>

@@ -90,6 +90,18 @@
             </div>
         </div>
         
+        <!-- Link URL -->
+        <div class="mb-6">
+            <label for="link_url" class="block text-sm font-medium text-gray-700 mb-2">Link URL (Opsional)</label>
+            <input type="url" name="link_url" id="link_url" value="{{ old('link_url') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" placeholder="https://example.com">
+            <p class="text-xs text-gray-500 mt-1">
+                URL yang akan dibuka ketika banner diklik. Kosongkan jika banner tidak perlu dapat diklik.
+            </p>
+            @error('link_url')
+                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+            @enderror
+        </div>
+        
         <!-- Order Number -->
         <div class="mb-6">
             <label for="order_number" class="block text-sm font-medium text-gray-700 mb-2">Urutan</label>

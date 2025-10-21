@@ -43,6 +43,7 @@ class BannerController extends Controller
         $request->validate([
             'desktop_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'mobile_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'link_url' => 'nullable|url|max:255',
             'order_number' => 'required|integer|min:1'
         ]);
         
@@ -71,6 +72,7 @@ class BannerController extends Controller
             Banner::create([
                 'image_desktop' => $desktopFilename,
                 'image_mobile' => $mobileFilename,
+                'link_url' => $request->link_url,
                 'order_number' => $request->order_number,
             ]);
             
@@ -106,6 +108,7 @@ class BannerController extends Controller
         $request->validate([
             'desktop_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'mobile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'link_url' => 'nullable|url|max:255',
             'order_number' => 'required|integer|min:1'
         ]);
         
@@ -168,7 +171,8 @@ class BannerController extends Controller
                 }
             }
             
-            // Update order number
+            // Update link URL and order number
+            $banner->link_url = $request->link_url;
             $banner->order_number = $request->order_number;
             
             // Debug - Let's log what we're about to save
@@ -186,6 +190,7 @@ class BannerController extends Controller
                     ->update([
                         'image_desktop' => $banner->image_desktop,
                         'image_mobile' => $banner->image_mobile,
+                        'link_url' => $banner->link_url,
                         'order_number' => $banner->order_number
                     ]);
                 
