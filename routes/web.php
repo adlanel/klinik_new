@@ -341,6 +341,55 @@ Route::middleware('auth')->group(function () {
             return view('pages.terapis.dashboard');
         })->name('dashboard');
 
+        // Jadwal Tugas - menampilkan history_terapi sesuai terapis yang login
+        Route::get('jadwal-tugas', function (Illuminate\Http\Request $request) {
+            $therapistId = auth()->id();
+            
+            $query = \DB::table('history_terapi')
+                ->leftJoin('data_pasien', 'history_terapi.id_pasien', '=', 'data_pasien.id_pasien')
+                ->leftJoin('layanan', 'history_terapi.id_layanan', '=', 'layanan.id')
+                ->leftJoin('cabang', 'history_terapi.id_cabang', '=', 'cabang.id')
+                ->leftJoin('users', 'history_terapi.id_terapis', '=', 'users.id')
+                ->select(
+                    'history_terapi.*',
+                    'data_pasien.nama_anak as nama_pasien',
+                    'layanan.title as nama_layanan',
+                    'cabang.nama_cabang',
+                    'users.name as nama_terapis'
+                )
+                ->where('history_terapi.id_terapis', $therapistId);
+            
+            // Filter by date
+            if ($request->has('tanggal') && $request->tanggal != '') {
+                $query->whereDate('history_terapi.tanggal_terapi', $request->tanggal);
+            }
+            
+            // Filter by status
+            if ($request->has('status') && $request->status != '') {
+                $query->where('history_terapi.status', $request->status);
+            }
+            
+            // Search by patient name
+            if ($request->has('search') && $request->search != '') {
+                $search = $request->search;
+                $query->where('data_pasien.nama_anak', 'like', "%{$search}%");
+            }
+            
+            // Order by date and time
+            $query->orderBy('history_terapi.tanggal_terapi', 'desc')
+                  ->orderBy('history_terapi.jam_sesi', 'asc');
+            
+            $jadwalTugas = collect($query->get());
+            
+            return view('pages.terapis.jadwal-tugas.index', compact('jadwalTugas'));
+        })->name('jadwal-tugas.index');
+
+        // Jadwal Tugas CRUD routes (tanpa delete untuk menjaga integritas data medis)
+        Route::get('jadwal-tugas/{id}', [App\Http\Controllers\Terapis\JadwalTugasController::class, 'show'])->name('jadwal-tugas.show');
+        Route::get('jadwal-tugas/{id}/edit', [App\Http\Controllers\Terapis\JadwalTugasController::class, 'edit'])->name('jadwal-tugas.edit');
+        Route::put('jadwal-tugas/{id}', [App\Http\Controllers\Terapis\JadwalTugasController::class, 'update'])->name('jadwal-tugas.update');
+        Route::get('jadwal-tugas/{id}/pdf', [App\Http\Controllers\Terapis\JadwalTugasController::class, 'downloadPDF'])->name('jadwal-tugas.pdf');
+
         // Appointment management routes
         Route::get('appointments', function (Illuminate\Http\Request $request) {
             $query = App\Models\Consultation::query();

@@ -140,23 +140,33 @@
                         <div class="w-64 flex-shrink-0 p-1 border-r min-h-8 {{ $dateInfo['isToday'] ? 'bg-blue-25' : '' }}">
                             @if(isset($jadwalTerstruktur[$dateInfo['date']][$jam]) && $jadwalTerstruktur[$dateInfo['date']][$jam]->count() > 0)
                                 @foreach($jadwalTerstruktur[$dateInfo['date']][$jam] as $sesi)
-                                    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded px-2 py-0.5 mb-0.5 text-xs hover:shadow-md hover:bg-blue-100 transition-all cursor-pointer" 
-                                         onclick="editSession({{ $sesi->id }})">
-                                        <!-- Single line format: Patient, Therapist, Service, Status -->
-                                        <div class="text-xs whitespace-nowrap overflow-hidden">
-                                            <span class="font-semibold text-gray-800">{{ $sesi->nama_pasien }}</span>, 
-                                            <span class="text-gray-600">{{ $sesi->nama_terapis ?? 'Belum ditentukan' }}</span>, 
-                                            <span class="text-purple-600">{{ $sesi->nama_layanan }}</span>, 
-                                            @if($sesi->status == 'Sudah Dikerjakan')
-                                                <span class="text-green-600 font-medium">Selesai</span>
-                                            @elseif($sesi->status == 'Belum Dikerjakan')
-                                                <span class="text-yellow-600 font-medium">Menunggu</span>
-                                            @elseif($sesi->status == 'Cancelled')
-                                                <span class="text-red-600 font-medium">Batal</span>
-                                            @else
-                                                <span class="text-gray-600 font-medium">{{ $sesi->status ?? 'Unknown' }}</span>
-                                            @endif
+                                    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded px-2 py-0.5 mb-0.5 text-xs hover:shadow-md hover:bg-blue-100 transition-all flex items-center justify-between group">
+                                        <!-- Data sesi (clickable untuk edit) -->
+                                        <div class="flex-1 cursor-pointer overflow-hidden" onclick="editSession({{ $sesi->id }})">
+                                            <div class="text-xs whitespace-nowrap overflow-hidden">
+                                                <span class="font-semibold text-gray-800">{{ $sesi->nama_pasien }}</span>, 
+                                                <span class="text-gray-600">{{ $sesi->nama_terapis ?? 'Belum ditentukan' }}</span>, 
+                                                <span class="text-purple-600">{{ $sesi->nama_layanan }}</span>, 
+                                                @if($sesi->status == 'Sudah Dikerjakan')
+                                                    <span class="text-green-600 font-medium">Selesai</span>
+                                                @elseif($sesi->status == 'Belum Dikerjakan')
+                                                    <span class="text-yellow-600 font-medium">Menunggu</span>
+                                                @elseif($sesi->status == 'Cancelled')
+                                                    <span class="text-red-600 font-medium">Batal</span>
+                                                @else
+                                                    <span class="text-gray-600 font-medium">{{ $sesi->status ?? 'Unknown' }}</span>
+                                                @endif
+                                            </div>
                                         </div>
+                                        
+                                        <!-- Tombol + di sebelah kanan (hanya di row terakhir) -->
+                                        @if($loop->last)
+                                            <button class="ml-2 w-6 h-6 bg-gray-400 hover:bg-gray-500 text-white rounded flex items-center justify-center text-lg font-bold opacity-70 group-hover:opacity-100 transition-all" 
+                                                    onclick="event.stopPropagation(); addSession('{{ $dateInfo['date'] }}', '{{ $jam }}');"
+                                                    title="Tambah sesi lagi di waktu yang sama">
+                                                +
+                                            </button>
+                                        @endif
                                     </div>
                                 @endforeach
                             @else

@@ -11,7 +11,13 @@
         
         <nav class="mt-6">
             <div class="space-y-2">
-                <!-- Dashboard (ke menu appointment sebagai default) -->
+                <!-- Jadwal Tugas -->
+                <a href="{{ route('terapis.jadwal-tugas.index') }}" class="flex items-center px-4 py-3 hover:bg-gray-700 rounded-md {{ Request::routeIs('terapis.jadwal-tugas.*') ? 'bg-blue-600' : '' }}">
+                    <i class="fas fa-tasks mr-3"></i>
+                    <span>Jadwal Tugas</span>
+                </a>
+
+                <!-- Appointment -->
                 <a href="{{ route('terapis.appointments.index') }}" class="flex items-center px-4 py-3 hover:bg-gray-700 rounded-md {{ Request::routeIs('terapis.appointments.*') ? 'bg-blue-600' : '' }}">
                     <i class="fas fa-calendar-alt mr-3"></i>
                     <span>Appointment</span>
