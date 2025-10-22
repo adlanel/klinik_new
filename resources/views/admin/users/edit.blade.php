@@ -56,6 +56,19 @@
                 </div>
                 
                 <div>
+                    <label for="cabang_id" class="block text-sm font-medium text-gray-700 mb-1">Cabang</label>
+                    <select name="cabang_id" id="cabang_id" class="w-full rounded-md @error('cabang_id') border-red-300 @else border-gray-300 @enderror shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                        <option value="">Pilih Cabang (Opsional)</option>
+                        @foreach($branches as $branch)
+                            <option value="{{ $branch->id }}" {{ old('cabang_id', $user->cabang_id) == $branch->id ? 'selected' : '' }}>{{ $branch->nama_cabang }}</option>
+                        @endforeach
+                    </select>
+                    @error('cabang_id')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+                
+                <div>
                     <label for="pendidikan" class="block text-sm font-medium text-gray-700 mb-1">Pendidikan</label>
                     <input type="text" name="pendidikan" id="pendidikan" value="{{ old('pendidikan', $user->pendidikan) }}" 
                         class="w-full rounded-md @error('pendidikan') border-red-300 @else border-gray-300 @enderror shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">

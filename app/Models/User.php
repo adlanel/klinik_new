@@ -32,6 +32,7 @@ class User extends Authenticatable
         'password',
         'pendidikan',
         'bidang',
+        'cabang_id',
     ];
 
     /**
@@ -79,5 +80,13 @@ class User extends Authenticatable
     public function isKepalaTerapis()
     {
         return $this->role === 'kepala_terapis';
+    }
+
+    /**
+     * Get the cabang that owns the user.
+     */
+    public function cabang()
+    {
+        return $this->belongsTo(Cabang::class, 'cabang_id');
     }
 }

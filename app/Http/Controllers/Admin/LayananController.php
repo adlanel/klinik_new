@@ -18,7 +18,7 @@ class LayananController extends Controller
      */
     public function index()
     {
-        $layanan = Layanan::orderBy('created_at', 'desc')->get();
+        $layanan = Layanan::orderBy('created_at', 'desc')->paginate(5);
         return view('admin.layanan.index', compact('layanan'));
     }
 
@@ -37,6 +37,10 @@ class LayananController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
+            'harga_reguler_weekday' => 'nullable|numeric|min:0',
+            'harga_paket_weekday' => 'nullable|numeric|min:0',
+            'harga_reguler_weekend' => 'nullable|numeric|min:0',
+            'harga_paket_weekend' => 'nullable|numeric|min:0',
             'short_description' => 'nullable|string',
             'description' => 'nullable|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
@@ -77,6 +81,10 @@ class LayananController extends Controller
             // Create new layanan record
             Layanan::create([
                 'title' => $request->title,
+                'harga_reguler_weekday' => $request->harga_reguler_weekday ?? 0,
+                'harga_paket_weekday' => $request->harga_paket_weekday ?? 0,
+                'harga_reguler_weekend' => $request->harga_reguler_weekend ?? 0,
+                'harga_paket_weekend' => $request->harga_paket_weekend ?? 0,
                 'slug' => $slug,
                 'short_description' => $request->short_description,
                 'description' => $request->description,
@@ -109,6 +117,10 @@ class LayananController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
+            'harga_reguler_weekday' => 'nullable|numeric|min:0',
+            'harga_paket_weekday' => 'nullable|numeric|min:0',
+            'harga_reguler_weekend' => 'nullable|numeric|min:0',
+            'harga_paket_weekend' => 'nullable|numeric|min:0',
             'short_description' => 'nullable|string',
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
@@ -124,6 +136,10 @@ class LayananController extends Controller
         try {
             // Update basic info
             $layanan->title = $request->title;
+            $layanan->harga_reguler_weekday = $request->harga_reguler_weekday ?? 0;
+            $layanan->harga_paket_weekday = $request->harga_paket_weekday ?? 0;
+            $layanan->harga_reguler_weekend = $request->harga_reguler_weekend ?? 0;
+            $layanan->harga_paket_weekend = $request->harga_paket_weekend ?? 0;
             
             // Update slug if title changed
             if ($layanan->isDirty('title')) {

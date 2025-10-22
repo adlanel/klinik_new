@@ -31,13 +31,22 @@
                             Title
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Harga Reguler Weekday
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Harga Paket Weekday
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Harga Reguler Weekend
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Harga Paket Weekend
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Short Description
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Status
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Created At
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-40">
                             Actions
@@ -48,7 +57,7 @@
                     @forelse($layanan as $index => $item)
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {{ $index + 1 }}
+                            {{ ($layanan->currentPage() - 1) * $layanan->perPage() + $index + 1 }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <img src="{{ $item->image_url }}" alt="{{ $item->title }}" class="h-12 w-20 object-cover rounded">
@@ -56,16 +65,41 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                             {{ $item->title }}
                         </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            @if($item->harga_reguler_weekday && $item->harga_reguler_weekday > 0)
+                                Rp {{ number_format($item->harga_reguler_weekday, 0, ',', '.') }}
+                            @else
+                                -
+                            @endif
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            @if($item->harga_paket_weekday && $item->harga_paket_weekday > 0)
+                                Rp {{ number_format($item->harga_paket_weekday, 0, ',', '.') }}
+                            @else
+                                -
+                            @endif
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            @if($item->harga_reguler_weekend && $item->harga_reguler_weekend > 0)
+                                Rp {{ number_format($item->harga_reguler_weekend, 0, ',', '.') }}
+                            @else
+                                -
+                            @endif
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            @if($item->harga_paket_weekend && $item->harga_paket_weekend > 0)
+                                Rp {{ number_format($item->harga_paket_weekend, 0, ',', '.') }}
+                            @else
+                                -
+                            @endif
+                        </td>
                         <td class="px-6 py-4 text-sm text-gray-500 max-w-xs truncate">
-                            {{ \Illuminate\Support\Str::limit($item->short_description, 50) }}
+                            {{ \Illuminate\Support\Str::limit($item->short_description, 30) }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $item->status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
                                 {{ ucfirst($item->status) }}
                             </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {{ \Carbon\Carbon::parse($item->created_at)->format('d M Y H:i:s') }}
                         </td>
                         <td class="px-6 py-4 text-sm font-medium flex space-x-3">
                             <a href="{{ route('admin.content.layanan.edit', $item->id) }}" class="text-indigo-600 hover:text-indigo-900">
@@ -82,7 +116,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="7" class="px-6 py-4 text-center text-gray-500">
+                        <td colspan="9" class="px-6 py-4 text-center text-gray-500">
                             Tidak ada layanan. <a href="{{ route('admin.content.layanan.create') }}" class="text-blue-600 hover:underline">Tambahkan sekarang</a>.
                         </td>
                     </tr>
@@ -90,6 +124,13 @@
                 </tbody>
             </table>
         </div>
+        
+        <!-- Pagination -->
+        @if($layanan->hasPages())
+            <div class="mt-6">
+                {{ $layanan->links() }}
+            </div>
+        @endif
     </div>
 </div>
 @endsection

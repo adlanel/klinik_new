@@ -13,6 +13,10 @@ class layanan extends Model
     
     protected $fillable = [
         'title',
+        'harga_reguler_weekday',
+        'harga_paket_weekday',
+        'harga_reguler_weekend',
+        'harga_paket_weekend',
         'slug',
         'short_description',
         'description',

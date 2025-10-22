@@ -88,21 +88,6 @@
                 </select>
             </div>
             
-            <!-- Jenis Terapi -->
-            <div>
-                <label for="jenis_terapi" class="block text-sm font-medium text-gray-700 mb-1">Jenis Terapi</label>
-                <select name="jenis_terapi" id="jenis_terapi" 
-                    class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-                    <option value="">Pilih Jenis Terapi</option>
-                    <option value="Terapi Wicara" {{ old('jenis_terapi') == 'Terapi Wicara' ? 'selected' : '' }}>Terapi Wicara</option>
-                    <option value="Terapi Okupasi" {{ old('jenis_terapi') == 'Terapi Okupasi' ? 'selected' : '' }}>Terapi Okupasi</option>
-                    <option value="Fisioterapi Anak" {{ old('jenis_terapi') == 'Fisioterapi Anak' ? 'selected' : '' }}>Fisioterapi Anak</option>
-                    <option value="Terapi Perilaku" {{ old('jenis_terapi') == 'Terapi Perilaku' ? 'selected' : '' }}>Terapi Perilaku</option>
-                    <option value="Terapi Edukasi" {{ old('jenis_terapi') == 'Terapi Edukasi' ? 'selected' : '' }}>Terapi Edukasi</option>
-                    <option value="Terapi Sensori Integrasi" {{ old('jenis_terapi') == 'Terapi Sensori Integrasi' ? 'selected' : '' }}>Terapi Sensori Integrasi</option>
-                </select>
-            </div>
-            
             <!-- Status Pasien -->
             <div>
                 <label for="status_pasien" class="block text-sm font-medium text-gray-700 mb-1">Status Pasien <span class="text-red-500">*</span></label>
@@ -111,13 +96,6 @@
                     <option value="Aktif" {{ old('status_pasien') == 'Aktif' ? 'selected' : '' }}>Aktif</option>
                     <option value="Tidak Aktif" {{ old('status_pasien') == 'Tidak Aktif' ? 'selected' : '' }}>Tidak Aktif</option>
                 </select>
-            </div>
-            
-            <!-- Terakhir Konsultasi -->
-            <div>
-                <label for="terakhir_konsultasi" class="block text-sm font-medium text-gray-700 mb-1">Terakhir Konsultasi</label>
-                <input type="date" name="terakhir_konsultasi" id="terakhir_konsultasi" value="{{ old('terakhir_konsultasi') }}" 
-                    class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
             </div>
         </div>
         
@@ -135,12 +113,7 @@
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">{{ old('keluhan_awal') }}</textarea>
         </div>
         
-        <!-- Hasil Follow Up -->
-        <div>
-            <label for="hasil_follow_up" class="block text-sm font-medium text-gray-700 mb-1">Hasil Follow Up</label>
-            <textarea name="hasil_follow_up" id="hasil_follow_up" rows="3" 
-                class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">{{ old('hasil_follow_up') }}</textarea>
-        </div>
+
         
         <div class="flex justify-end">
             <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded">

@@ -70,7 +70,7 @@
                             <p class="text-base text-gray-900">{{ $patient->telepon ?? '-' }}</p>
                         </div>
                         <div>
-                            <h3 class="text-sm font-medium text-gray-500">Cabang</h3>
+                            <h3 class="text-sm font-medium text-gray-500">Cabang Daftar</h3>
                             <p class="text-base text-gray-900">{{ $patient->cabang->nama_cabang ?? '-' }}</p>
                         </div>
                         <div class="md:col-span-2">
@@ -89,10 +89,6 @@
                 <div class="p-6 space-y-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <h3 class="text-sm font-medium text-gray-500">Jenis Terapi</h3>
-                            <p class="text-base text-gray-900">{{ $patient->jenis_terapi ?? '-' }}</p>
-                        </div>
-                        <div>
                             <h3 class="text-sm font-medium text-gray-500">Status Pasien</h3>
                             <p class="text-base text-gray-900">
                                 @if($patient->status_pasien == 'Aktif')
@@ -106,12 +102,6 @@
                                 @endif
                             </p>
                         </div>
-                        <div>
-                            <h3 class="text-sm font-medium text-gray-500">Terakhir Konsultasi</h3>
-                            <p class="text-base text-gray-900">
-                                {{ $patient->terakhir_konsultasi ? \Carbon\Carbon::parse($patient->terakhir_konsultasi)->format('d M Y') : '-' }}
-                            </p>
-                        </div>
                     </div>
                     
                     <div class="mt-4">
@@ -121,12 +111,7 @@
                         </div>
                     </div>
                     
-                    <div class="mt-4">
-                        <h3 class="text-sm font-medium text-gray-500 mb-2">Hasil Follow Up</h3>
-                        <div class="bg-gray-50 p-4 rounded border">
-                            <p class="text-base text-gray-900">{{ $patient->hasil_follow_up ?? 'Belum ada hasil follow up tercatat.' }}</p>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -145,31 +130,11 @@
                         <div>
                             <p class="font-medium text-gray-900">Riwayat Konsultasi</p>
                             <p class="text-sm text-gray-500">Lihat semua riwayat konsultasi pasien</p>
-                            <a href="#" class="text-sm text-blue-600 hover:text-blue-800 mt-1 inline-block">Lihat Detail</a>
+                            <a href="{{ route('admin.patients.history', $patient->id_pasien) }}" class="text-sm text-blue-600 hover:text-blue-800 mt-1 inline-block">Detail</a>
                         </div>
                     </div>
                     
-                    <div class="flex items-center space-x-4 p-4 bg-green-50 rounded-lg border border-green-100">
-                        <div class="flex-shrink-0 h-12 w-12 rounded-full bg-green-100 flex items-center justify-center">
-                            <i class="fas fa-chart-line text-green-600"></i>
-                        </div>
-                        <div>
-                            <p class="font-medium text-gray-900">Perkembangan Terapi</p>
-                            <p class="text-sm text-gray-500">Lihat progres terapi pasien</p>
-                            <a href="#" class="text-sm text-green-600 hover:text-green-800 mt-1 inline-block">Lihat Progres</a>
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-center space-x-4 p-4 bg-purple-50 rounded-lg border border-purple-100">
-                        <div class="flex-shrink-0 h-12 w-12 rounded-full bg-purple-100 flex items-center justify-center">
-                            <i class="fas fa-file-medical-alt text-purple-600"></i>
-                        </div>
-                        <div>
-                            <p class="font-medium text-gray-900">Catatan Medis</p>
-                            <p class="text-sm text-gray-500">Kelola catatan medis pasien</p>
-                            <a href="#" class="text-sm text-purple-600 hover:text-purple-800 mt-1 inline-block">Lihat Catatan</a>
-                        </div>
-                    </div>
+
                 </div>
             </div>
             

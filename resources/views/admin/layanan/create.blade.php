@@ -26,6 +26,42 @@
                     @enderror
                 </div>
                 
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label for="harga_reguler_weekday" class="block text-sm font-medium text-gray-700 mb-2">Harga Reguler Weekday</label>
+                        <input type="number" step="0.01" min="0" name="harga_reguler_weekday" id="harga_reguler_weekday" value="{{ old('harga_reguler_weekday', 0) }}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200">
+                        @error('harga_reguler_weekday')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    
+                    <div>
+                        <label for="harga_paket_weekday" class="block text-sm font-medium text-gray-700 mb-2">Harga Paket Weekday</label>
+                        <input type="number" step="0.01" min="0" name="harga_paket_weekday" id="harga_paket_weekday" value="{{ old('harga_paket_weekday', 0) }}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200">
+                        @error('harga_paket_weekday')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label for="harga_reguler_weekend" class="block text-sm font-medium text-gray-700 mb-2">Harga Reguler Weekend</label>
+                        <input type="number" step="0.01" min="0" name="harga_reguler_weekend" id="harga_reguler_weekend" value="{{ old('harga_reguler_weekend', 0) }}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200">
+                        @error('harga_reguler_weekend')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    
+                    <div>
+                        <label for="harga_paket_weekend" class="block text-sm font-medium text-gray-700 mb-2">Harga Paket Weekend</label>
+                        <input type="number" step="0.01" min="0" name="harga_paket_weekend" id="harga_paket_weekend" value="{{ old('harga_paket_weekend', 0) }}" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200">
+                        @error('harga_paket_weekend')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+                
                 <div class="mb-6">
                     <label for="short_description" class="block text-sm font-medium text-gray-700 mb-2">Deskripsi Singkat</label>
                     <textarea name="short_description" id="short_description" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200">{{ old('short_description') }}</textarea>

@@ -98,22 +98,12 @@
                     </div>
                     
                     <div>
-                        <label for="jenis_terapi" class="block text-sm font-medium text-gray-700 mb-1">Jenis Terapi</label>
-                        <input type="text" id="jenis_terapi" name="jenis_terapi" value="{{ old('jenis_terapi') }}" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
-                    </div>
-                    
-                    <div>
                         <label for="status_pasien" class="block text-sm font-medium text-gray-700 mb-1">Status Pasien <span class="text-red-500">*</span></label>
                         <select id="status_pasien" name="status_pasien" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" required>
                             <option value="">Pilih Status</option>
                             <option value="Aktif" {{ old('status_pasien', 'Aktif') == 'Aktif' ? 'selected' : '' }}>Aktif</option>
                             <option value="Tidak Aktif" {{ old('status_pasien') == 'Tidak Aktif' ? 'selected' : '' }}>Tidak Aktif</option>
                         </select>
-                    </div>
-                    
-                    <div>
-                        <label for="terakhir_konsultasi" class="block text-sm font-medium text-gray-700 mb-1">Terakhir Konsultasi</label>
-                        <input type="date" id="terakhir_konsultasi" name="terakhir_konsultasi" value="{{ old('terakhir_konsultasi') }}" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
                     </div>
                 </div>
                 

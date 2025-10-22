@@ -49,6 +49,12 @@
                     <span>Data Pasien</span>
                 </a>
 
+                <!-- Jadwal -->
+                <a href="<?php echo e(route('admin.jadwal.index')); ?>" class="flex items-center px-4 py-3 hover:bg-gray-700 rounded-md <?php echo e(Request::routeIs('admin.jadwal.*') ? 'bg-blue-600' : ''); ?>">
+                    <i class="fas fa-calendar-week mr-3"></i>
+                    <span>Jadwal</span>
+                </a>
+
                 <!-- Manage User -->
                 <a href="<?php echo e(route('admin.users.index')); ?>" class="flex items-center px-4 py-3 hover:bg-gray-700 rounded-md <?php echo e(Request::routeIs('admin.users.*') ? 'bg-blue-600' : ''); ?>">
                     <i class="fas fa-users-cog mr-3"></i>

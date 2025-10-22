@@ -23,9 +23,6 @@ class DataPasien extends Model
         'alamat',
         'id_cabang',
         'keluhan_awal',
-        'jenis_terapi',
-        'hasil_follow_up',
-        'terakhir_konsultasi',
         'status_pasien',
     ];
 

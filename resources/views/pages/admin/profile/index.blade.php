@@ -61,6 +61,16 @@
                         </div>
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                            <!-- Branch (read-only) -->
+                            <div>
+                                <label for="cabang" class="block text-sm font-medium text-gray-700 mb-1">Cabang</label>
+                                <input type="text" id="cabang" value="{{ $user->cabang ? $user->cabang->nama_cabang : 'Tidak ada cabang' }}" class="mt-1 block w-full rounded-md border-gray-300 bg-gray-50 shadow-sm" disabled readonly>
+                            </div>
+                            
+                            <div></div> <!-- Empty div for grid spacing -->
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                             <!-- Education -->
                             <div>
                                 <label for="pendidikan" class="block text-sm font-medium text-gray-700 mb-1">Education</label>
@@ -136,6 +146,11 @@
                             <div class="flex items-center mb-2">
                                 <i class="fas fa-phone-alt text-gray-500 mr-2"></i>
                                 <span class="text-gray-700">{{ $user->phone }}</span>
+                            </div>
+                            
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-building text-gray-500 mr-2"></i>
+                                <span class="text-gray-700">{{ $user->cabang ? $user->cabang->nama_cabang : 'Tidak ada cabang' }}</span>
                             </div>
                             
                             @if($user->pendidikan)

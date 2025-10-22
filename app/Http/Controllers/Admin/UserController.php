@@ -32,8 +32,8 @@ class UserController extends Controller
             $query->where('role', $request->role);
         }
 
-        // Get paginated results
-        $users = $query->orderBy('created_at', 'desc')->paginate(10);
+        // Get paginated results with cabang relationship
+        $users = $query->with('cabang')->orderBy('created_at', 'desc')->paginate(10);
         
         return view('admin.users.index', compact('users'));
     }
@@ -43,7 +43,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        $branches = \App\Models\Cabang::getAllBranches();
+        return view('admin.users.create', compact('branches'));
     }
 
     /**
@@ -59,6 +60,7 @@ class UserController extends Controller
             'phone' => 'required|string|max:15',
             'pendidikan' => 'nullable|string|max:100',
             'bidang' => 'nullable|string|max:100',
+            'cabang_id' => 'nullable|exists:cabang,id',
         ]);
 
         User::create([
@@ -69,6 +71,7 @@ class UserController extends Controller
             'phone' => $request->phone,
             'pendidikan' => $request->pendidikan,
             'bidang' => $request->bidang,
+            'cabang_id' => $request->cabang_id,
         ]);
 
         return redirect()->route('admin.users.index')
@@ -86,7 +89,8 @@ class UserController extends Controller
                 ->with('error', 'Anda tidak memiliki izin untuk mengubah data ini');
         }
 
-        return view('admin.users.edit', compact('user'));
+        $branches = \App\Models\Cabang::getAllBranches();
+        return view('admin.users.edit', compact('user', 'branches'));
     }
 
     /**
@@ -113,6 +117,7 @@ class UserController extends Controller
             'phone' => 'required|string|max:15',
             'pendidikan' => 'nullable|string|max:100',
             'bidang' => 'nullable|string|max:100',
+            'cabang_id' => 'nullable|exists:cabang,id',
         ]);
 
         $user->update([
@@ -122,6 +127,7 @@ class UserController extends Controller
             'phone' => $request->phone,
             'pendidikan' => $request->pendidikan,
             'bidang' => $request->bidang,
+            'cabang_id' => $request->cabang_id,
         ]);
 
         return redirect()->route('admin.users.index')

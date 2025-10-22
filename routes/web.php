@@ -40,10 +40,185 @@ Route::get('/test-tailwind', function () {
     return view('test');
 });
 
+// Simple working API routes without authentication
+Route::get('/api/get-patients', function() {
+    try {
+        $patients = \DB::table('data_pasien')
+            ->select('id_pasien', 'nama_anak', 'status_pasien')
+            ->where('status_pasien', 'Aktif')
+            ->orderBy('nama_anak')
+            ->get();
+        return response()->json($patients);
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+});
+
+Route::get('/api/get-therapists', function() {
+    try {
+        $therapists = \DB::table('users')
+            ->select('id', 'name')
+            ->where('role', 'terapis')
+            ->orderBy('name')
+            ->get();
+        return response()->json($therapists);
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+});
+
+Route::get('/api/get-services', function() {
+    try {
+        $services = \DB::table('layanan')
+            ->select('id', 'title')
+            ->where('status', 'active')
+            ->orderBy('title')
+            ->get();
+        return response()->json($services);
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+});
+
+Route::get('/api/get-branches', function() {
+    try {
+        $branches = \DB::table('cabang')
+            ->select('id', 'nama_cabang')
+            ->orderBy('nama_cabang')
+            ->get();
+        return response()->json($branches);
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+});
+
+Route::get('/api/get-session/{id}', function($id) {
+    try {
+        $session = \DB::table('history_terapi')
+            ->where('id', $id)
+            ->first();
+        
+        if (!$session) {
+            return response()->json(['error' => 'Session not found'], 404);
+        }
+        
+        return response()->json($session);
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+});
+
+// Debug route untuk test data
+Route::get('/api/debug-data', function() {
+    return response()->json([
+        'patients_count' => \DB::table('data_pasien')->count(),
+        'active_patients_count' => \DB::table('data_pasien')->where('status_pasien', 'Aktif')->count(),
+        'therapists_count' => \DB::table('users')->where('role', 'terapis')->count(),
+        'services_count' => \DB::table('layanan')->where('status', 'active')->count(),
+        'branches_count' => \DB::table('cabang')->count(),
+        'sessions_count' => \DB::table('history_terapi')->count(),
+        'sample_patient' => \DB::table('data_pasien')->where('status_pasien', 'Aktif')->first(),
+        'sample_therapist' => \DB::table('users')->where('role', 'terapis')->first(),
+        'sample_service' => \DB::table('layanan')->where('status', 'active')->first(),
+        'sample_branch' => \DB::table('cabang')->first()
+    ]);
+});
+
 // Login Routes
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.process');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// Test API Routes (temporary - remove these later)
+Route::get('/test-api/patients', function() {
+    try {
+        $patients = DB::table('data_pasien')
+            ->select('id_pasien', 'nama_anak')
+            ->orderBy('nama_anak')
+            ->get();
+        return response()->json($patients);
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+});
+Route::get('/test-api/therapists', function() {
+    try {
+        $therapists = DB::table('users')
+            ->select('id', 'name')
+            ->where('role', 'terapis')
+            ->orderBy('name')
+            ->get();
+        return response()->json($therapists);
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+});
+Route::get('/test-api/services', function() {
+    try {
+        $services = DB::table('layanan')
+            ->select('id', 'title')
+            ->orderBy('title')
+            ->get();
+        return response()->json($services);
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+});
+Route::get('/test-api/branches', function() {
+    try {
+        $branches = DB::table('cabang')
+            ->select('id', 'nama_cabang')
+            ->orderBy('nama_cabang')
+            ->get();
+        return response()->json($branches);
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+});
+Route::get('/test-api/jadwal/{id}/edit', function($id) {
+    try {
+        $session = DB::table('history_terapi')
+            ->where('id', $id)
+            ->first();
+        
+        if (!$session) {
+            return response()->json(['error' => 'Session not found'], 404);
+        }
+        
+        return response()->json($session);
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+});
+
+// Simple test routes
+Route::get('/test-simple', function() {
+    return response()->json(['message' => 'Test route works']);
+});
+Route::get('/test-services', function() {
+    try {
+        $services = DB::table('layanan')->select('id', 'title')->get();
+        return response()->json($services);
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+});
+Route::get('/test-branches', function() {
+    try {
+        $branches = DB::table('cabang')->select('id', 'nama_cabang')->get();
+        return response()->json($branches);
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+});
+Route::get('/test-debug', function() {
+    return response()->json([
+        'patients_count' => DB::table('data_pasien')->count(),
+        'therapists_count' => DB::table('users')->where('role', 'terapis')->count(),
+        'services_count' => DB::table('layanan')->count(),
+        'branches_count' => DB::table('cabang')->count()
+    ]);
+});
 
 // Admin Routes
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
@@ -52,6 +227,22 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     
     // Patient Management Routes
     Route::resource('patients', App\Http\Controllers\Admin\PatientController::class);
+    Route::get('patients/{id}/history', [App\Http\Controllers\Admin\PatientController::class, 'showHistory'])->name('patients.history');
+    Route::get('patients/{patient}/history/{history}/detail', [App\Http\Controllers\Admin\PatientController::class, 'showHistoryDetail'])->name('patients.history.detail');
+    Route::get('patients/{patient}/history/{history}/pdf', [App\Http\Controllers\Admin\PatientController::class, 'downloadHistoryPDF'])->name('patients.history.pdf');
+    
+    // Jadwal Routes
+    Route::get('jadwal', [App\Http\Controllers\Admin\JadwalController::class, 'index'])->name('jadwal.index');
+    Route::post('jadwal', [App\Http\Controllers\Admin\JadwalController::class, 'store'])->name('jadwal.store');
+    Route::get('jadwal/{id}/edit', [App\Http\Controllers\Admin\JadwalController::class, 'edit'])->name('jadwal.edit');
+    Route::put('jadwal/{id}', [App\Http\Controllers\Admin\JadwalController::class, 'update'])->name('jadwal.update');
+    Route::delete('jadwal/{id}', [App\Http\Controllers\Admin\JadwalController::class, 'destroy'])->name('jadwal.destroy');
+    
+    // API Routes for dropdown data
+    Route::get('api/patients', [App\Http\Controllers\Admin\JadwalController::class, 'getPatients'])->name('api.patients');
+    Route::get('api/therapists', [App\Http\Controllers\Admin\JadwalController::class, 'getTherapists'])->name('api.therapists');
+    Route::get('api/services', [App\Http\Controllers\Admin\JadwalController::class, 'getServices'])->name('api.services');
+    Route::get('api/branches', [App\Http\Controllers\Admin\JadwalController::class, 'getBranches'])->name('api.branches');
     
     // Appointment Management Routes
     Route::resource('appointments', App\Http\Controllers\Admin\AppointmentController::class);
@@ -271,6 +462,10 @@ Route::middleware('auth')->group(function () {
 
         Route::delete('patients/{id}', [App\Http\Controllers\Terapis\PatientController::class, 'destroy'])
             ->name('patients.destroy');
+
+        Route::get('patients/{id}/history', [App\Http\Controllers\Terapis\PatientController::class, 'showHistory'])->name('patients.history');
+        Route::get('patients/{patient}/history/{history}/detail', [App\Http\Controllers\Terapis\PatientController::class, 'showHistoryDetail'])->name('patients.history.detail');
+        Route::get('patients/{patient}/history/{history}/pdf', [App\Http\Controllers\Terapis\PatientController::class, 'downloadHistoryPDF'])->name('patients.history.pdf');
 
         // Terapis profile
         Route::get('profile', [App\Http\Controllers\Terapis\ProfileController::class, 'show'])->name('profile.show');

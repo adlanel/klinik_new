@@ -68,53 +68,73 @@
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr>
-                    <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Anak</th>
-                    <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jenis Kelamin</th>
-                    <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Usia</th>
-                    <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Orang Tua</th>
-                    <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Telepon</th>
-                    <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cabang</th>
-                    <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Terapi</th>
-                    <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                    <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
+                    <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Pasien</th>
+                    <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Umur</th>
+                    <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Jenis Kelamin</th>
+                    <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Cabang Daftar</th>
+                    <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Detail Profil</th>
+                    <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                    <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">History</th>
                     <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
-                @forelse($patients ?? [] as $patient)
+                @forelse($patients ?? [] as $index => $patient)
                     <tr>
+                        <!-- No -->
+                        <td class="px-4 py-4 whitespace-nowrap text-center">
+                            <div class="text-sm text-gray-900">{{ $index + 1 }}</div>
+                        </td>
+                        
+                        <!-- Nama Pasien -->
                         <td class="px-4 py-4 whitespace-nowrap">
                             <div class="text-sm font-medium text-gray-900">{{ $patient->nama_anak }}</div>
-                            <div class="text-xs text-gray-500">ID: {{ $patient->id_pasien }}</div>
                         </td>
-                        <td class="px-4 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-900">{{ $patient->jenis_kelamin }}</div>
-                        </td>
-                        <td class="px-4 py-4 whitespace-nowrap">
+                        
+                        <!-- Umur -->
+                        <td class="px-4 py-4 whitespace-nowrap text-center">
                             <div class="text-sm text-gray-900">
                                 @if($patient->tanggal_lahir)
-                                    {{ \Carbon\Carbon::parse($patient->tanggal_lahir)->age }} tahun
+                                    {{ \Carbon\Carbon::parse($patient->tanggal_lahir)->age }} th
                                 @else
                                     -
                                 @endif
                             </div>
                         </td>
-                        <td class="px-4 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-900">{{ $patient->nama_orang_tua ?? '-' }}</div>
+                        
+                        <!-- Jenis Kelamin -->
+                        <td class="px-4 py-4 whitespace-nowrap text-center">
+                            <div class="text-sm text-gray-900">
+                                {{ $patient->jenis_kelamin == 'Laki-laki' ? 'L' : 'P' }}
+                            </div>
                         </td>
-                        <td class="px-4 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-900">{{ $patient->telepon ?? '-' }}</div>
-                        </td>
-                        <td class="px-4 py-4 whitespace-nowrap">
+                        
+                        <!-- Cabang -->
+                        <td class="px-4 py-4 whitespace-nowrap text-center">
                             <div class="text-sm text-gray-900">{{ $patient->cabang->nama_cabang ?? '-' }}</div>
                         </td>
-                        <td class="px-4 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-900">{{ $patient->jenis_terapi ?? '-' }}</div>
+                        
+                        <!-- Detail Profil -->
+                        <td class="px-4 py-4 whitespace-nowrap text-center">
+                            <a href="{{ route('terapis.patients.show', $patient->id_pasien) }}" class="text-blue-600 hover:text-blue-900 p-2 rounded-full hover:bg-blue-50">
+                                <i class="fas fa-user"></i>
+                            </a>
                         </td>
-                        <td class="px-4 py-4 whitespace-nowrap">
+                        
+                        <!-- Status -->
+                        <td class="px-4 py-4 whitespace-nowrap text-center">
                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
                                 {{ $patient->status_pasien == 'Aktif' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
                                 {{ $patient->status_pasien }}
                             </span>
+                        </td>
+                        
+                        <!-- History -->
+                        <td class="px-4 py-4 whitespace-nowrap text-center">
+                            <a href="{{ route('terapis.patients.history', $patient->id_pasien) }}" class="text-purple-600 hover:text-purple-900 p-2 rounded-full hover:bg-purple-50">
+                                <i class="fas fa-history"></i>
+                            </a>
                         </td>
                         <td class="px-4 py-4 whitespace-nowrap text-center">
                             <div class="flex justify-center space-x-2">
@@ -151,6 +171,10 @@
     @endif
 </div>
 
+
+
+
+
 @push('scripts')
 <script>
     function deletePatient(id) {
@@ -158,6 +182,8 @@
             document.getElementById('delete-form-' + id).submit();
         }
     }
+
+
 </script>
 @endpush
 @endsection

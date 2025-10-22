@@ -17,7 +17,7 @@ class ProfileController extends Controller
      */
     public function show()
     {
-        $user = Auth::user();
+        $user = Auth::user()->load('cabang');
         return view('pages.admin.profile.index', compact('user'));
     }
 

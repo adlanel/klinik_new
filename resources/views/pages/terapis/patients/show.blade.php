@@ -85,10 +85,6 @@
                 <div class="p-6 space-y-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <h3 class="text-sm font-medium text-gray-500">Jenis Terapi</h3>
-                            <p class="text-base text-gray-900">{{ $patient->jenis_terapi ?? '-' }}</p>
-                        </div>
-                        <div>
                             <h3 class="text-sm font-medium text-gray-500">Status Pasien</h3>
                             <p class="text-base text-gray-900">
                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
@@ -98,18 +94,8 @@
                             </p>
                         </div>
                         <div>
-                            <h3 class="text-sm font-medium text-gray-500">Cabang</h3>
+                            <h3 class="text-sm font-medium text-gray-500">Cabang Daftar</h3>
                             <p class="text-base text-gray-900">{{ $patient->cabang->nama_cabang ?? '-' }}</p>
-                        </div>
-                        <div>
-                            <h3 class="text-sm font-medium text-gray-500">Terakhir Konsultasi</h3>
-                            <p class="text-base text-gray-900">
-                                @if($patient->terakhir_konsultasi)
-                                    {{ \Carbon\Carbon::parse($patient->terakhir_konsultasi)->format('d M Y') }}
-                                @else
-                                    -
-                                @endif
-                            </p>
                         </div>
                     </div>
                 </div>
@@ -130,12 +116,28 @@
                         </div>
                     </div>
                     
-                    <div>
-                        <h3 class="text-sm font-medium text-gray-500">Hasil Follow Up</h3>
-                        <div class="mt-1 p-3 bg-gray-50 rounded-md">
-                            <p class="text-sm text-gray-900 whitespace-pre-wrap">{{ $patient->hasil_follow_up ?? '-' }}</p>
+
+                </div>
+            </div>
+            
+            <!-- Quick Actions -->
+            <div class="bg-white border rounded-lg overflow-hidden mt-6">
+                <div class="px-6 py-4 bg-gray-50 border-b">
+                    <h2 class="text-lg font-semibold text-gray-800">Akses Cepat</h2>
+                </div>
+                <div class="p-6 space-y-4">
+                    <div class="flex items-center space-x-4 p-4 bg-blue-50 rounded-lg border border-blue-100">
+                        <div class="flex-shrink-0 h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center">
+                            <i class="fas fa-calendar-check text-blue-600"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium text-gray-900">Riwayat Konsultasi</p>
+                            <p class="text-sm text-gray-500">Lihat semua riwayat konsultasi pasien</p>
+                            <a href="{{ route('terapis.patients.history', $patient->id_pasien) }}" class="text-sm text-blue-600 hover:text-blue-800 mt-1 inline-block">Lihat Detail</a>
                         </div>
                     </div>
+                    
+
                 </div>
             </div>
             
